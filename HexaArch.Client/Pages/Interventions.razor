@@ -1,0 +1,114 @@
+﻿@page "/interventions"
+@using HexaArch.Frontend.Pages.Modal
+@using HexaArch.Frontend.Shared
+@using HexaArch.Shared.Converters
+@using HexaArch.Shared.Model
+@using System.Text.Json.Serialization
+@using System.Text.Json
+@using static HexaArch.Frontend.Pages.Modal.AddInterventionCardPage
+@inject HttpClient Http
+@inject DialogService DialogService
+
+<PageTitle>Interventions</PageTitle>
+
+<h1>Liste des interventions</h1>
+@if (interventions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container">
+        <div class="row py-5">
+            <div class="col">
+                <RadzenCard>
+                    <RadzenDataList WrapItems="true" AllowPaging="true" Data="@interventions" TItem="InterventionModel" PageSize="5" 
+                        PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                        <Template Context="intervention">
+                            <RadzenCard Style="width: 100%; padding: 0; overflow: hidden;">
+                                <div class="container">
+                                    <div class="row" style="margin-left: calc(var(--bs-gutter-x) * -1); margin-right: calc(var(--bs-gutter-x) * -1)">
+                                        <div class="col-lg-2 p-3 product-title">
+                                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">@(intervention.Contract)</RadzenText>
+                                        </div>
+                                        <div class="col-lg-8 p-6">
+                                            <div class="row d-flex">
+                                                <div class="col-md-6 col-lg-2">
+                                                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Date</RadzenText>
+                                                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(intervention.InterventionDate)</RadzenText>
+                                                </div>
+                                                <div class="col-md-6 col-lg-2">
+                                                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Prestataire</RadzenText>
+                                                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(intervention.Supplier)</RadzenText>
+                                                </div>
+                                                <div class="col-md-6 col-lg-2">
+                                                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Nb. Inter.</RadzenText>
+                                                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(intervention.NbIntervention)</RadzenText>
+                                                </div>
+                                                <div class="col-md-6 col-lg-2">
+                                                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Tarif</RadzenText>
+                                                    <RadzenBadge BadgeStyle="BadgeStyle.Primary" Shade="Shade.Lighter" Class="price-badge" Text=@($"{String.Format(new System.Globalization.CultureInfo("fr-FR"), "{0:C}", intervention.Price)}") />
+                                                </div>
+                                                <div class="col-md-6 col-lg-2">
+                                                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Tva</RadzenText>
+                                                    <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Shade="Shade.Lighter" Class="price-badge" Text=@($"{String.Format(new System.Globalization.CultureInfo("fr-FR"), "{0:P2}", intervention.Tva / 100)}") />
+                                                </div>
+                                                <div class="col-md-6 col-lg-2 order-first order-lg-last text-sm-start text-lg-end mb-3 mb-lg-0">
+                                                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Montant Tva</RadzenText>
+                                                    <RadzenBadge BadgeStyle="BadgeStyle.Primary" Shade="Shade.Lighter" Class="price-badge" Text=@($"{String.Format(new System.Globalization.CultureInfo("fr-FR"), "{0:C}", intervention.TvaAmount)}") />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 p-3">
+                                            <RadzenButton Text="Détails" Class="w-100" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </RadzenCard>
+                        </Template>
+                    </RadzenDataList>
+
+                </RadzenCard>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid">
+        <RadzenButton Click=@AddNewIntervention Text="Add New" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
+    </div>
+}
+
+@code {
+    private InterventionModel[]? interventions;
+    JsonSerializerOptions option = new JsonSerializerOptions();
+
+    protected override async Task OnInitializedAsync()
+    {
+        option.Converters.Add(new DateOnlyJsonConverter());
+        option.PropertyNameCaseInsensitive = true;
+        interventions = await Http.GetFromJsonAsync<InterventionModel[]>("api/Intervention", option);
+    }
+
+    public async Task AddNewIntervention()
+    {
+        // get contract and pass it by parameter --> TODO get from server
+        var contracts = interventions?.Select(c => c.Contract)
+                                      .Distinct().ToList();
+
+        // do the same with possible Supplier --> TODO get from server
+        var suppliers = interventions?.Select(w => w.Supplier)
+                                      .Distinct().ToList();
+
+        DialogResult result = await DialogService.OpenAsync<AddInterventionCardPage>("Ajouter une intervention",
+                               parameters: new Dictionary<string, object?>() { 
+                                   { "Contracts", contracts },
+                                   { "Suppliers", suppliers },
+                               },
+                               new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = true });
+        if(result.Button == DialogResultButton.OK && 
+            result.Data is not null) {
+            await Http.PostAsJsonAsync<InterventionRequest>("api/Intervention", result.Data, option);
+        }
+        interventions = await Http.GetFromJsonAsync<InterventionModel[]>("api/Intervention", option);
+    }
+}

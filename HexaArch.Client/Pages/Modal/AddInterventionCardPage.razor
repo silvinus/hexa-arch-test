@@ -1,0 +1,47 @@
+﻿@page "/dialogcard/addintervention"
+@inject Radzen.DialogService dialogService
+
+<div class="container-fluid">
+    <h3>Nouvelle intervention</h3>
+
+    <div class="row">
+        <div class="col-md-4 p-3">
+            @*<RadzenCard>*@
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" class="mb-0">Prestataire</RadzenText>
+                @*<RadzenText TextStyle="TextStyle.Body2" class="mb-2">Start typing e.g. France</RadzenText>*@
+                <RadzenAutoComplete Data=@Suppliers @bind-Value=@request.Supplier Style="width: 100%;" />
+            @*</RadzenCard>*@
+        </div>
+        <div class="col-md-4 p-3">
+            @*<RadzenCard>*@
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" class="mb-0">Date de l'intervention</RadzenText>
+                @*<RadzenText TextStyle="TextStyle.Body2" class="mb-2">Start typing e.g. France</RadzenText>*@
+                <RadzenDatePicker @bind-Value=@interventionDate DateFormat="d" Class="w-100" />
+            @*</RadzenCard>*@
+        </div>
+        <div class="col-md-4 p-3">
+            @*<RadzenCard>*@
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" class="mb-0">Contract</RadzenText>
+                @*<RadzenText TextStyle="TextStyle.Body2" class="mb-2">Start typing e.g. France</RadzenText>*@
+                <RadzenAutoComplete Data=@Contracts @bind-Value=@request.ContractName Style="width: 100%;" />
+            @*</RadzenCard>*@
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 p-3">
+            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" class="mb-0">Prix</RadzenText>
+            <RadzenNumeric TValue="float" Format="0.00 €" @bind-Value=@request.Price Placeholder="Coût de l'intervention" />
+        </div>
+        <div class="col-md-4 p-3">
+            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" class="mb-0">TVA</RadzenText>
+            <RadzenNumeric TValue="float" Format="0.00 '%'" @bind-Value=@request.Tva Placeholder="Tva" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <RadzenButton Click="@((args) => Cancel())" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Light" Text="Cancel" Style="width: 120px" Class="me-1" />
+            <RadzenButton Click="@((args) => Ok())" Variant="Variant.Flat" Text="OK" Style="width: 120px" />
+        </div>
+    </div>
+</div>

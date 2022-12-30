@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32519.111
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaArch.Server", "HexaArch.Server\HexaArch.Server.csproj", "{44EB2619-5F68-4BA8-9469-A08EE8BDA1E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaArch.Frontend", "HexaArch.Client\HexaArch.Frontend.csproj", "{85F21FC4-3E0A-4AD8-BFBB-663E2EA67DC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaArch.Domain", "HexaArch.Domain\HexaArch.Domain.csproj", "{82ACB8BF-138F-454C-A7C5-7D0A1A469B6E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaArch.Infrastructure", "HexaArch.Infrastructure\HexaArch.Infrastructure.csproj", "{B1D0B20D-0EBB-4361-B334-36B5E8744D8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaArch.Application", "HexaArch.Application\HexaArch.Application.csproj", "{35F1BBE1-D663-4691-A39E-F54CAF9EB616}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaArch.Shared", "HexaArch.Shared\HexaArch.Shared.csproj", "{91D20E34-49BD-4EEE-9353-9D92FB4F111B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{DEFCDF99-DA48-4A16-BE8B-D94AF4288EB3}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44EB2619-5F68-4BA8-9469-A08EE8BDA1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44EB2619-5F68-4BA8-9469-A08EE8BDA1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44EB2619-5F68-4BA8-9469-A08EE8BDA1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44EB2619-5F68-4BA8-9469-A08EE8BDA1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F21FC4-3E0A-4AD8-BFBB-663E2EA67DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F21FC4-3E0A-4AD8-BFBB-663E2EA67DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F21FC4-3E0A-4AD8-BFBB-663E2EA67DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F21FC4-3E0A-4AD8-BFBB-663E2EA67DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82ACB8BF-138F-454C-A7C5-7D0A1A469B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82ACB8BF-138F-454C-A7C5-7D0A1A469B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82ACB8BF-138F-454C-A7C5-7D0A1A469B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82ACB8BF-138F-454C-A7C5-7D0A1A469B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D0B20D-0EBB-4361-B334-36B5E8744D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D0B20D-0EBB-4361-B334-36B5E8744D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D0B20D-0EBB-4361-B334-36B5E8744D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D0B20D-0EBB-4361-B334-36B5E8744D8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F1BBE1-D663-4691-A39E-F54CAF9EB616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F1BBE1-D663-4691-A39E-F54CAF9EB616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F1BBE1-D663-4691-A39E-F54CAF9EB616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F1BBE1-D663-4691-A39E-F54CAF9EB616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91D20E34-49BD-4EEE-9353-9D92FB4F111B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D20E34-49BD-4EEE-9353-9D92FB4F111B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D20E34-49BD-4EEE-9353-9D92FB4F111B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D20E34-49BD-4EEE-9353-9D92FB4F111B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86E4E0CD-E07C-4215-94C8-BCEE6EB2CD3D}
+	EndGlobalSection
+EndGlobal
